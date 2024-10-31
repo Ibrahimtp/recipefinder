@@ -1,24 +1,5 @@
 
-// Sample recipe data 
-const recipes = [
-    {
-        title: "Spaghetti Carbonara",
-        image: "https://example.com/spaghetti.jpg",
-        description: "A classic Italian pasta dish with creamy sauce, bacon, and Parmesan cheese.",
-    },
-    {
-        title: "Vegetable Stir Fry",
-        image: "https://example.com/stirfry.jpg",
-        description: "A healthy mix of veggies with a delicious stir-fry sauce.",
-    },
-    {
-        title: "Chicken Curry",
-        image: "https://example.com/chickencurry.jpg",
-        description: "A spicy and flavorful chicken curry with rice.",
-    },
-];
 
-// Populate the recipe list
 const recipeList = document.getElementById('recipe-list');
 
 function displayRecipes(filteredRecipes) {
@@ -28,23 +9,50 @@ function displayRecipes(filteredRecipes) {
         recipeCard.classList.add('recipe-card');
 
         recipeCard.innerHTML = `
-            <img src="${recipe.image}" alt="${recipe.title}" class="recipe-image" />
+            <img src="${recipe.photo}" alt="${recipe.name}" class="recipe-image" />
             <div class="recipe-content">
-                <h2 class="recipe-title">${recipe.title}</h2>
-                <p class="recipe-description">${recipe.description}</p>
+                <h2 class="recipe-title">${recipe.name}</h2>
+                <p class="recipe-description">Cuisine: ${recipe.Cuisine}</p>
+                <a href="about-recipe.html?recipeId=${recipe.id}">View more about recipe </a>
             </div>
         `;
         recipeList.appendChild(recipeCard);
     });
 }
 
-// Display all recipes initially
-displayRecipes(recipes);
 
-// Search functionality
-const searchBar = document.getElementById('search-bar');
-searchBar.addEventListener('input', (e) => {
-    const searchTerm = e.target.value.toLowerCase();
-    const filteredRecipes = recipes.filter(recipe => recipe.title.toLowerCase().includes(searchTerm));
-    displayRecipes(filteredRecipes);
+async function searchRecipe(query){
+    const rapidApikey = '83682b0663mshf328a91c95c4dc8p1c9cc4jsnc6a5304b93aa'
+    const options = {
+        method: 'GET',
+        url: `https://all-in-one-recipe-api.p.rapidapi.com/search/${query}`,
+        headers: {
+          'x-rapidapi-key': rapidApikey,
+          'x-rapidapi-host': 'all-in-one-recipe-api.p.rapidapi.com'
+        }
+      };
+      
+      try {
+          const response = await axios.request(options);
+          console.log(response.data,'searccc');
+
+          return response
+         
+      } catch (error) {
+          console.error(error);
+      }
+}
+
+
+
+document.getElementById("search-button").addEventListener("click", function() {
+    const query = document.getElementById("search-input").value;
+    if (query) {
+        searchRecipe(query).then((response)=>{
+            displayRecipes(response.data.recipes.data)
+        })
+        
+    }
 });
+
+
