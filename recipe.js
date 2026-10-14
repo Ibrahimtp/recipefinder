@@ -1,5 +1,5 @@
-const rapidApikey = '83682b0663mshf328a91c95c4dc8p1c9cc4jsnc6a5304b93aa'
-const pexelApiKey = 'N4ejZTdHRsdxKAYS6SSYiGRjcNvpVvDsMZDTjWXZgMfFVa4BdUHNzQoJ'
+const rapidApikey = window.APP_CONFIG.RAPIDAPI_KEY
+const pexelApiKey = window.APP_CONFIG.PEXELS_API_KEY
 
 
 

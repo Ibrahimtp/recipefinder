@@ -22,7 +22,7 @@ function displayRecipes(filteredRecipes) {
 
 
 async function searchRecipe(query){
-    const rapidApikey = '83682b0663mshf328a91c95c4dc8p1c9cc4jsnc6a5304b93aa'
+    const rapidApikey = window.APP_CONFIG.RAPIDAPI_KEY
     const options = {
         method: 'GET',
         url: `https://all-in-one-recipe-api.p.rapidapi.com/search/${query}`,

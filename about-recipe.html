@@ -154,6 +154,7 @@ footer {
     <footer>
         <p>&copy; 2024 Recipe Finder. All rights reserved.</p>
     </footer>
+    <script src="config.js"></script>
     <script>
   
 
@@ -227,7 +228,7 @@ function getQueryParam(param) {
 
 
 async function getRecipedetail() {
-    const rapidApikey = '83682b0663mshf328a91c95c4dc8p1c9cc4jsnc6a5304b93aa' 
+    const rapidApikey = window.APP_CONFIG.RAPIDAPI_KEY 
 
     const recipeId = getQueryParam('recipeId')
     const options = {
